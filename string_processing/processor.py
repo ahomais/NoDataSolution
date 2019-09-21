@@ -1,6 +1,7 @@
 import wikipedia as wiki
 import nltk
 import re
+import functools
 from gensim.summarization import summarizer
 
 def _wiki_summary_filter(summary):
@@ -36,6 +37,7 @@ def get_query_list(search_string):
     """
     return _wikisearch(search_string)
 
+@functools.lru_cache(maxsize=128)
 def get_page_summary(query_list, option_index):
     """
     Paramaters -
