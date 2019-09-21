@@ -10,7 +10,7 @@ def _wiki_summary_filter(summary):
 
 def _wikisearch(query):
     results = wiki.search(query, results=4)
-    return results
+    return tuple(results)
 
 def _get_page_from_list(query_list, option_index):
     selected = query_list[option_index]
