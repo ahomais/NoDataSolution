@@ -1,8 +1,6 @@
-from secrets import *
 from flask import Flask, request
 from string_processing.processor import get_query_list, get_page_summary
 from twilio.twiml.messaging_response import MessagingResponse
-# from twilio.rest import Client
 
 app = Flask(__name__)
 
