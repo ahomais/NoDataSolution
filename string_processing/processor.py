@@ -4,8 +4,8 @@ import re
 from gensim.summarization import summarizer
 
 def _wiki_summary_filter(summary):
-    whitespace_filtered = re.sub(r"[^\S]{2,}", " ", summary)
-    return re.sub(r"\s*{[^{}]+}\s*", " ", whitespace_filtered)
+    braces_filtered = re.sub(r'\{.*\}', ' ', summary)
+    return re.sub(r'[^\S]{2,}', ' ', braces_filtered)
 
 def _wikisearch(query):
     results = wiki.search(query, results=4)
@@ -22,7 +22,7 @@ def _summarize_data(full_string):
 
 def test(string):
     query_list = _wikisearch(string)
-    page_sum = _get_page_from_list(query_list, 1)
+    page_sum = _get_page_from_list(query_list, 0)
     print("1.")
     print(page_sum, end="\n\n\n")
     cond = _summarize_data(page_sum)
