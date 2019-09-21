@@ -1,6 +1,7 @@
 from flask import Flask, request
 from string_processing.processor import get_query_list, get_page_summary
 from twilio.twiml.messaging_response import MessagingResponse
+import os
 
 app = Flask(__name__)
 
@@ -50,4 +51,4 @@ def sms_recv_msg():
     return str(resp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=os.environ['PORT'])
