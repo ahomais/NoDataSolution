@@ -32,10 +32,15 @@ def get_query_list(search_string):
     return _wikisearch(search_string)
 
 def get_page_summary(query_list, option_index):
+    """
+    Paramaters -
+        query_list: a non-empty list of query results
+        option_index: an index for query_list from 0 to query_list length - 1
+    Returns a string of summarized content, which should be split into an array of 
+    text of 200-220 length
+    """
     wiki_sum = _get_page_from_list(query_list, option_index)
     if(len(wiki_sum) <= 600):
         return wiki_sum
     else:
         return _summarize_data(wiki_sum)
-
-test("Stockfish")
