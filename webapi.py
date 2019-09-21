@@ -52,7 +52,7 @@ def sms_recv_msg():
                 texts.append(message[counter: counter + TEXTSIZE])
                 counter = counter + TEXTSIZE
             texts.append(message[counter:len(message)])
-            resp.messages(texts)
+            resp.message(texts)
         else:
             resp.message("Sorry, I couldn't understand")
     else:
