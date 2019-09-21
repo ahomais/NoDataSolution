@@ -3,6 +3,8 @@ from string_processing.processor import get_query_list, get_page_summary
 from twilio.twiml.messaging_response import MessagingResponse
 import os
 
+TEXTSIZE = 200
+
 app = Flask(__name__)
 
 """
@@ -43,7 +45,14 @@ def sms_recv_msg():
                 'lastTextSid': form['MessageSid'],
                 'lastQueryResult': qlist
             }
-            resp.message(message)
+
+            texts = []
+            counter = 0
+            while (counter+200) < len(message):
+                texts.append(message[counter: counter + TEXTSIZE])
+                counter = counter + TEXTSIZE
+            texts.append(message[counter:len(message)])
+            resp.messages(texts)
         else:
             resp.message("Sorry, I couldn't understand")
     else:
