@@ -1,6 +1,11 @@
 import wikipedia as wiki
 import nltk
+import re
 from gensim.summarization import summarizer
+
+def _wiki_summary_filter(summary):
+    whitespace_filtered = re.sub(r"[^\S]{2,}", " ", summary)
+    return re.sub(r"\s*{[^{}]+}\s*", " ", whitespace_filtered)
 
 def _wikisearch(query):
     results = wiki.search(query, results=4)
@@ -9,7 +14,7 @@ def _wikisearch(query):
 def _get_page_from_list(query_list, option_index):
     selected = query_list[option_index]
     summary = wiki.summary(selected)
-    return summary
+    return _wiki_summary_filter(summary)
     
 def _summarize_data(full_string):
     condensed = summarizer.summarize(full_string)
@@ -43,4 +48,4 @@ def get_page_summary(query_list, option_index):
     if(len(wiki_sum) <= 600):
         return wiki_sum
     else:
-        return _summarize_data(wiki_sum)
+        return wiki_sum[:600]
